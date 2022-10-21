@@ -2,9 +2,8 @@ import subprocess
 
 
 def main():
-    subprocess.call("cd news_scraper/spiders/", shell=True)
-    subprocess.Popen(["scrapy", "crawl", "hi-tech_crawl", "-o", "../../../data/hi-tech-scraped_data.csv"])
-    subprocess.Popen(["scrapy", "runspider", "habr_news.py", "-o", "../../../data/habr-scraped_data.csv"])
+    subprocess.Popen(["news_scraper/spiders/scrapy", "crawl", "hi-tech_crawl", "-o", "../../../data/hi-tech-scraped_data.csv"])
+    subprocess.Popen(["news_scraper/spiders/scrapy", "runspider", "habr_news.py", "-o", "../../../data/habr-scraped_data.csv"])
 
 
 if __name__ == "__main__":
