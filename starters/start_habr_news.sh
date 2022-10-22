@@ -1,2 +1,2 @@
 #!/bin/bash
-scrapy runspider habr_news.py -o ../../../data/habr-scraped_data.csv
+scrapy runspider habr_news.py -o ~/Project/data/hi-tech-scraped_data.csv
