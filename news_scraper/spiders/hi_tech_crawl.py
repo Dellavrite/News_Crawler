@@ -28,7 +28,7 @@ class HiTechCrawlSpider(CrawlSpider):
         links = response.xpath('//article/h2/a/@href').extract()
         senders_names = response.xpath('//div[@class="author"]/text()').extract()
         senders_links = "NONE"
-        dates = response.xpath('//time[@class="post__date"]/text()').extract()
+        dates = response.xpath('//time[@class="post__date"]/@datetime').extract()
         ids = response.xpath('//div[@id="content"]//article/@id').extract()
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
             scraped_data = {
@@ -36,7 +36,7 @@ class HiTechCrawlSpider(CrawlSpider):
                 "Заглавие": item[1],
                 "Имя отправителя": item[2],
                 "Ссылка на отправителя": "#",
-                "Дата": item[4],
+                "Дата": item[4].split("T")[0],
                 "id": "id=" + item[5]
             }
             yield scraped_data
