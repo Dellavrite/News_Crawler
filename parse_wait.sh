@@ -12,7 +12,7 @@ python3 ~/Project/News_Crawler/merge_csv.py
 
 mkdir ~/Project/my_django_project/searchEngine/data
 
-mv merged.csv ~/Project/my_django_project/searchEngine/data/
+mv merged.csv ~/Project/my_django_project/static/
 
 python3 ~/Project/my_django_project/manage.py runscript load
 
