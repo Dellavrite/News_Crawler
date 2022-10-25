@@ -10,5 +10,7 @@ done
 cd ~/Project/data/
 python3 ~/Project/News_Crawler/merge_csv.py
 
-python manage.py runscript load
+mv merged.csv ~/Project/my_django_project/searchEngine/data
+
+python3 ~/Project/my_django_project/manage.py runscript load
 
