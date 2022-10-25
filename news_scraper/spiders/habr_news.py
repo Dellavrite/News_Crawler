@@ -13,7 +13,7 @@ class HabrNewsSpider(scrapy.Spider):
         titles = response.xpath('//a[@class="tm-article-snippet__title-link"]/span/text()').extract()
         senders_names = list(map(str.strip, response.xpath('//a[@class="tm-user-info__username"]/text()').extract()))
         senders_links = response.xpath('//a[@class="tm-user-info__username"]/@href').extract()
-        dates = response.xpath('//span[@class="tm-article-snippet__datetime-published"]/time/@title').extract()
+        dates = response.xpath('//span[@class="tm-article-snippet__datetime-published"]/time/@datetime').extract()
         ids = response.xpath('//article[@class="tm-articles-list__item"]/@id').extract()
 
         #data = csv.reader(open("scraped_data.csv", "r"), delimiter=",")
@@ -24,7 +24,7 @@ class HabrNewsSpider(scrapy.Spider):
                 "Заглавие": item[1],
                 "Имя отправителя": item[2],
                 "Ссылка на отправителя": item[3],
-                "Дата": item[4],
+                "Дата": item[4].split("T")[0],
                 "id": "id=" + item[5]
             }
             next_page = response.xpath('//a[@rel="next"]/@href').extract_first()
