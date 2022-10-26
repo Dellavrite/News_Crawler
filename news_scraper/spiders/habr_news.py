@@ -1,14 +1,16 @@
 import scrapy
 import csv
 
+post_ids_text = []
+with open("/home/controller/Project/temp/post_ids.csv", "r") as post_ids_file:
+    post_ids_text.extend(list(csv.reader(post_ids_file, delimiter="~")))
+
 
 class HabrNewsSpider(scrapy.Spider):
     name = 'habr_news'
     allowed_domains = ['habr.com']
     start_urls = ['https://habr.com/ru/news/page1/']
-    post_ids_text = []
-    with open("/home/controller/Project/temp/post_ids.csv", "r") as post_ids_file:
-        post_ids_text.extend(list(csv.reader(post_ids_file, delimiter="~")))
+
 
     def parse(self, response, **kwargs):
         links = response.xpath('//a[@class="tm-article-snippet__title-link"]/@href').extract()
@@ -19,7 +21,7 @@ class HabrNewsSpider(scrapy.Spider):
         ids = response.xpath('//article[@class="tm-articles-list__item"]/@id').extract()
 
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
-            if item[5] in self.post_ids_text:
+            if item[5] in post_ids_text:
                 break
             scraped_data = {
                 "Ссылка": "https://habr.com" + item[0],
