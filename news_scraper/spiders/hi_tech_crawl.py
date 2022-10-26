@@ -1,3 +1,4 @@
+import csv
 import time
 
 import scrapy
@@ -12,7 +13,9 @@ class HiTechCrawlSpider(CrawlSpider):
     start_page_crawl = False
     le_next = LinkExtractor(restrict_css="li > a.next")
     rule_next = Rule(le_next, callback="parse_item", follow=True)
-
+    post_ids_text = []
+    with open("~/Project/data/post_ids.csv", "r") as post_ids_file:
+        post_ids_text.extend(list(csv.reader(post_ids_file, delimiter="~")))
     rules = (
         rule_next,
     )
@@ -31,12 +34,14 @@ class HiTechCrawlSpider(CrawlSpider):
         dates = response.xpath('//time[@class="post__date"]/@datetime').extract()
         ids = response.xpath('//div[@id="content"]//article/@id').extract()
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
+            if item[5] in self.post_ids_text:
+                break
             scraped_data = {
                 "Ссылка": item[0],
                 "Заглавие": item[1],
                 "Имя отправителя": item[2],
                 "Ссылка на отправителя": "#",
                 "Дата": item[4].split("T")[0],
-                "id": "id=" + item[5]
+                "id": item[5]
             }
             yield scraped_data

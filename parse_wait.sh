@@ -14,3 +14,5 @@ mv merged.csv ~/Project/my_django_project/static/
 
 python3 ~/Project/my_django_project/manage.py runscript load
 
+cd ~/Project/my_django_project
+screen -S update_db -d -m bash update_db.sh
