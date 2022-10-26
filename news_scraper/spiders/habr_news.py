@@ -7,7 +7,7 @@ class HabrNewsSpider(scrapy.Spider):
     allowed_domains = ['habr.com']
     start_urls = ['https://habr.com/ru/news/page1/']
     post_ids_text = []
-    with open("~/Project/temp/post_ids.csv", "r") as post_ids_file:
+    with open("/home/controller/Project/temp/post_ids.csv", "r") as post_ids_file:
         post_ids_text.extend(list(csv.reader(post_ids_file, delimiter="~")))
 
     def parse(self, response, **kwargs):
