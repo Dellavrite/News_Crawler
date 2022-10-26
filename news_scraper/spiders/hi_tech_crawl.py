@@ -14,7 +14,7 @@ class HiTechCrawlSpider(CrawlSpider):
     le_next = LinkExtractor(restrict_css="li > a.next")
     rule_next = Rule(le_next, callback="parse_item", follow=True)
     post_ids_text = []
-    with open("~/Project/my_django_project/static/post_ids.csv", "r") as post_ids_file:
+    with open("~/Project/temp/post_ids.csv", "r") as post_ids_file:
         post_ids_text.extend(list(csv.reader(post_ids_file, delimiter="~")))
     rules = (
         rule_next,
