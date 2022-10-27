@@ -19,8 +19,9 @@ class HabrNewsSpider(scrapy.Spider):
         ids = response.xpath('//article[@class="tm-articles-list__item"]/@id').extract()
 
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
+            yield [item[5], self.post_ids_text]
             if item[5] in self.post_ids_text:
-                yield [item[5], self.post_ids_text]
+                pass
             scraped_data = {
                 "Ссылка": "https://habr.com" + item[0],
                 "Заглавие": item[1],
