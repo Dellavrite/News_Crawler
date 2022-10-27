@@ -27,7 +27,7 @@ class HabrNewsSpider(scrapy.Spider):
                 "Имя отправителя": item[2],
                 "Ссылка на отправителя": item[3],
                 "Дата": item[4].split("T")[0],
-                "id": list(item[5]) + self.post_ids_text
+                "id": list(item[5]) + self.post_ids_text[0]
             }
             next_page = response.xpath('//a[@rel="next"]/@href').extract_first()
             if next_page:
