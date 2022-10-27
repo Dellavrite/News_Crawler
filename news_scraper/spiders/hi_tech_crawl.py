@@ -28,7 +28,7 @@ class HiTechCrawlSpider(CrawlSpider):
         ids = response.xpath('//div[@id="content"]//article/@id').extract()
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
             if item[5] in self.post_ids_text[0]:
-                break
+                return None
             scraped_data = {
                 "Ссылка": item[0],
                 "Заглавие": item[1],
