@@ -21,6 +21,14 @@ ROBOTSTXT_OBEY = True
 FEED_EXPORTERS = {
     'csv': 'news_scraper.exporters.CsvCustomSeperator'
 }
+FEEDS = {
+    '<filename.csv>': {
+        'format': 'csv',
+        'item_export_kwargs': {
+           'include_headers_line': False,
+        },
+    }
+}
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
