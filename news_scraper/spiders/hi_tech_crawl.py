@@ -20,12 +20,6 @@ class HiTechCrawlSpider(CrawlSpider):
     )
 
     def parse_item(self, response):
-        if not self.start_page_crawl:
-            yield scrapy.Request(
-                    response.urljoin("http://hi-news.ru/page/1"),
-                    callback=self.parse_item
-                )
-            self.start_page_crawl = True
         titles = response.css('h2.post__title.post__title_preview > a::text').extract()
         links = response.xpath('//article/h2/a/@href').extract()
         senders_names = response.xpath('//div[@class="author"]/text()').extract()
@@ -44,3 +38,9 @@ class HiTechCrawlSpider(CrawlSpider):
                 "id": item[5]
             }
             yield scraped_data
+        if not self.start_page_crawl:
+            yield scrapy.Request(
+                    response.urljoin("http://hi-news.ru/page/1"),
+                    callback=self.parse_item
+                )
+            self.start_page_crawl = True
