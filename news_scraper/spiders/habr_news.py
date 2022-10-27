@@ -19,7 +19,7 @@ class HabrNewsSpider(scrapy.Spider):
         ids = response.xpath('//article[@class="tm-articles-list__item"]/@id').extract()
 
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
-            if item[5] in self.post_ids_text:
+            if item[5] in self.post_ids_text[0]:
                 break
             scraped_data = {
                 "Ссылка": "https://habr.com" + item[0],
@@ -27,7 +27,7 @@ class HabrNewsSpider(scrapy.Spider):
                 "Имя отправителя": item[2],
                 "Ссылка на отправителя": item[3],
                 "Дата": item[4].split("T")[0],
-                "id": item[5] + self.post_ids_text[0][0]
+                "id": item[5]
             }
             next_page = response.xpath('//a[@rel="next"]/@href').extract_first()
             if next_page:
