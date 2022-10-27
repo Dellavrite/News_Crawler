@@ -20,7 +20,7 @@ class HabrNewsSpider(scrapy.Spider):
 
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
             if item[5] in self.post_ids_text:
-                break
+                yield [item[5], self.post_ids_text]
             scraped_data = {
                 "Ссылка": "https://habr.com" + item[0],
                 "Заглавие": item[1],
