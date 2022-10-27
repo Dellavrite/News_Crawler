@@ -2,6 +2,7 @@ import csv
 import time
 
 import scrapy
+from scrapy.exceptions import CloseSpider
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
@@ -28,7 +29,7 @@ class HiTechCrawlSpider(CrawlSpider):
         ids = response.xpath('//div[@id="content"]//article/@id').extract()
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
             if item[5] in self.post_ids_text[0]:
-                return None
+                raise CloseSpider("ID EXISTS")
             scraped_data = {
                 "Ссылка": item[0],
                 "Заглавие": item[1],

@@ -1,6 +1,8 @@
 import scrapy
 import csv
 
+from scrapy.exceptions import CloseSpider
+
 
 class HabrNewsSpider(scrapy.Spider):
     name = 'habr_news'
@@ -19,7 +21,7 @@ class HabrNewsSpider(scrapy.Spider):
 
         for item in zip(links, titles, senders_names, senders_links, dates, ids):
             if item[5] in self.post_ids_text[0]:
-                return None
+                raise CloseSpider("ID EXISTS")
             scraped_data = {
                 "Ссылка": "https://habr.com" + item[0],
                 "Заглавие": item[1],
