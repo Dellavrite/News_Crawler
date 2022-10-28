@@ -6,4 +6,4 @@ class CsvCustomExporter(CsvItemExporter):
         kwargs['encoding'] = 'utf-8'
         kwargs['delimiter'] = '~'
         self.include_headers_line = False
-        super(CsvCustomExporter, self).__init__(*args, **kwargs)
+        super(CsvCustomExporter, self).__init__(include_headers_line=False, *args, **kwargs)
